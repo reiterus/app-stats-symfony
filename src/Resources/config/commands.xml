@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="rts.app.stats.service.helper"
+                 public="true"
+                 autowire="true"
+                 class="Reiterus\AppStatsBundle\Service\Helper">
+        </service>
+
+        <service id="rts.app.stats.service.factory"
+                 public="true"
+                 autowire="true"
+                 class="Reiterus\AppStatsBundle\Service\Factory">
+            <argument type="service" key="$kernel" id="kernel" />
+            <argument type="service" key="$helper" id="rts.app.stats.service.helper" />
+        </service>
+
+        <service id="rts.app.stats.command.general"
+                 public="true"
+                 autowire="true"
+                 class="Reiterus\AppStatsBundle\Command\GeneralCommand">
+            <argument type="service" key="$factory" id="rts.app.stats.service.factory" />
+            <tag name="console.command" command="rts:stats:general" />
+        </service>
+        <service id="Reiterus\AppStatsBundle\Command\GeneralCommand"
+                 alias="rts.app.stats.command.general"/>
+    </services>
+
+</container>
