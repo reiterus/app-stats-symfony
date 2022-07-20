@@ -2,24 +2,29 @@
 
 Statistics about your Symfony application: size, files, methods, templates, services, etc.
 
+Directories for analysis: `assets, bin, config, migrations, public, templates, translations, src, tests`
+
 | #   | Title  | Value                           |
 |-----| ------ |---------------------------------|
 | 1   | Root folder | /var/www/demo.symfony.localhost |
-| 2   | All project in bytes | 94539478 (vendor, var, etc)     |
-| 3   | Working files in bytes  | 12104484                        |
-| 4   | Number of working files | 519                             |
-| 5   | ...including "assets" | 13                              |
-| 6   | ...including "bin" | 2                               |
-| 7   | ...including "config" | 36                              |
-| 8   | ...including "migrations" | 1                               |
-| 9   | ...including "public" | 344                             |
-| 10  | ...including "templates" | 30                              |
-| 11  | ...including "translations" | 48                              |
-| 12  | ...including "src" | 35                              |
-| 13  | ...including "tests" | 10                              |
+| 2   | All project in bytes | 94539478 (vendor, var, etc) |
+| 3   | Working files in bytes  | 12104484 |
+| 4   | Number of working files | 519 |
+| 5   | ...including "assets" | 13 |
+| ...   | ... | ... |
+| 12  | ...including "src" | 35 |
+
+| #   | Extension          | Amount                          |
+|-----|--------------------|---------------------------------|
+| 1   | Root folder        | /var/www/demo.symfony.localhost |
+| 2   | js                 | 214                             |
+| 3   | woff2              | 60                              |
+| ... | ...                | ...                             |
+| 8   | php                | 47                              |
 
 To get one of the statistics options, run the following commands:
 - general information: `rts:stats:general`
+- general information: `rts:stats:files`
 - to be continued :-) ...
 
 To get more detailed information about a specific service run this command `bin/console debug:container rts.app`

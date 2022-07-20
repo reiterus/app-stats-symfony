@@ -35,4 +35,11 @@ interface FactoryInterface
      * @return HelperInterface
      */
     public function helper(): HelperInterface;
+
+    /**
+     * Get FileInterface instance
+     *
+     * @return FilesInterface
+     */
+    public function files(): FilesInterface;
 }
