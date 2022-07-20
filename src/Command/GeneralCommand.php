@@ -61,14 +61,23 @@ class GeneralCommand extends Command
 
         $rootFolder = $kernel->getProjectDir();
 
+        list($bytesWork, $counter, $rows) = $helper->tableGeneral(4, $rootFolder);
+
+        $bytesAll = sprintf(
+            '%s (vendor, var, etc)',
+            $helper->folderSize($rootFolder)
+        );
+
         $table = new Table($output);
         $table
             ->setHeaders(['#', 'Title', 'Value'])
             ->setRows([
                 [1, 'Root folder', $rootFolder],
-                [2, 'Number of app files', $helper->fileCount($rootFolder)],
-                [3, 'Project size in bytes', $helper->folderSize($rootFolder)],
+                [2, 'All project in bytes', $bytesAll],
+                [3, 'Working files in bytes', $bytesWork],
+                [4, 'Number of working files', $counter],
             ]);
+        $table->addRows($rows);
         $table->render();
 
         return Command::SUCCESS;

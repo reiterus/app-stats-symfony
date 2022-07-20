@@ -2,7 +2,21 @@
 
 Statistics about your Symfony application: size, files, methods, templates, services, etc.
 
-![General Statistics](img-table-general.png)
+| #   | Title  | Value                           |
+|-----| ------ |---------------------------------|
+| 1   | Root folder | /var/www/demo.symfony.localhost |
+| 2   | All project in bytes | 94539478 (vendor, var, etc)     |
+| 3   | Working files in bytes  | 12104484                        |
+| 4   | Number of working files | 519                             |
+| 5   | ...including "assets" | 13                              |
+| 6   | ...including "bin" | 2                               |
+| 7   | ...including "config" | 36                              |
+| 8   | ...including "migrations" | 1                               |
+| 9   | ...including "public" | 344                             |
+| 10  | ...including "templates" | 30                              |
+| 11  | ...including "translations" | 48                              |
+| 12  | ...including "src" | 35                              |
+| 13  | ...including "tests" | 10                              |
 
 To get one of the statistics options, run the following commands:
 - general information: `rts:stats:general`
