@@ -73,6 +73,60 @@ class Helper implements HelperInterface
     }
 
     /**
+     * @codeCoverageIgnore
+     * Data for general table report
+     *
+     * @param int $number
+     * @param string $rootFolder
+     *
+     * @return array
+     */
+    public function tableGeneral(int $number, string $rootFolder): array
+    {
+        $files = 0;
+        $bytes = 0;
+        $rows = [];
+
+        foreach ($this->folderNames() as $folder) {
+            $number++;
+            $path = sprintf('%s/%s', $rootFolder, $folder);
+            $count = $this->fileCount($path);
+            $size = $this->folderSize($path);
+
+            $rows[] = [
+                $number,
+                sprintf('...including "%s"', $folder),
+                $count
+            ];
+
+            $files += $count;
+            $bytes += $size;
+        }
+
+        return [$bytes, $files, $rows];
+    }
+
+    /**
+     * Names of the required directories
+     *
+     * @return array
+     */
+    public function folderNames(): array
+    {
+        return [
+            'assets',
+            'bin',
+            'config',
+            'migrations',
+            'public',
+            'templates',
+            'translations',
+            'src',
+            'tests',
+        ];
+    }
+
+    /**
      * Recursive Folder Iterator
      *
      * @param string $folder

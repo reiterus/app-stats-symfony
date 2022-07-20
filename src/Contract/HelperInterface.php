@@ -41,6 +41,23 @@ interface HelperInterface
     public function folderSize(string $folder): int;
 
     /**
+     * Data for general table report
+     *
+     * @param int $number
+     * @param string $rootFolder
+     *
+     * @return array
+     */
+    public function tableGeneral(int $number, string $rootFolder): array;
+
+    /**
+     * Names of the required directories
+     *
+     * @return array
+     */
+    public function folderNames(): array;
+
+    /**
      * Recursive Folder Iterator
      *
      * @param string $folder

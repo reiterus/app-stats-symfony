@@ -3,7 +3,7 @@
     "description": "Symfony application stats: methods, templates, services, etc",
     "keywords": ["symfony", "bundle", "application", "stats", "reiterus"],
     "type": "symfony-bundle",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "minimum-stability": "dev",
     "license": "MIT",
     "authors": [

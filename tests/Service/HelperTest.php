@@ -14,6 +14,7 @@ namespace Reiterus\AppStatsBundle\Tests\Service;
 use RecursiveIteratorIterator;
 use Reiterus\AppStatsBundle\Service\Helper;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * @covers \Reiterus\AppStatsBundle\Service\Helper
@@ -25,6 +26,7 @@ use PHPUnit\Framework\TestCase;
 class HelperTest extends TestCase
 {
     private Helper $object;
+
     /**
      * @covers \Reiterus\AppStatsBundle\Service\Helper::fileCount
      * @return void
@@ -43,6 +45,16 @@ class HelperTest extends TestCase
     {
         $actual = $this->object->folderSize(__DIR__);
         $this->assertIsInt($actual);
+    }
+
+    /**
+     * @covers \Reiterus\AppStatsBundle\Service\Helper::folderNames
+     * @return void
+     */
+    public function testFolderNames(): void
+    {
+        $actual = $this->object->folderNames();
+        $this->assertIsArray($actual);
     }
 
     /**
