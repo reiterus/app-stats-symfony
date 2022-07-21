@@ -33,19 +33,7 @@ class Helper implements HelperInterface
      */
     public function fileCount(string $folder): int
     {
-        $result = 0;
-
-        if (file_exists($folder)) {
-            $items = $this->iterator($folder);
-
-            foreach ($items as $item) {
-                if (!$item->isDir()) {
-                    $result++;
-                }
-            }
-        }
-
-        return $result;
+        return $this->counter($folder);
     }
 
     /**
@@ -57,19 +45,7 @@ class Helper implements HelperInterface
      */
     public function folderSize(string $folder): int
     {
-        $bytes = 0;
-
-        if (file_exists($folder)) {
-            $items = $this->iterator($folder);
-
-            foreach ($items as $item) {
-                if (!$item->isDir()) {
-                    $bytes += $item->getSize();
-                }
-            }
-        }
-
-        return $bytes;
+        return $this->counter($folder, true);
     }
 
     /**
@@ -141,5 +117,30 @@ class Helper implements HelperInterface
                 FilesystemIterator::SKIP_DOTS
             )
         );
+    }
+
+    /**
+     * Count size or quantity
+     *
+     * @param string $folder
+     * @param bool $size
+     *
+     * @return int
+     */
+    protected function counter(string $folder, bool $size = false): int
+    {
+        $result = 0;
+
+        if (file_exists($folder)) {
+            $items = $this->iterator($folder);
+
+            foreach ($items as $item) {
+                if (!$item->isDir()) {
+                    $result += $size ? $item->getSize() : 1;
+                }
+            }
+        }
+
+        return $result;
     }
 }
