@@ -42,4 +42,11 @@ interface FactoryInterface
      * @return FilesInterface
      */
     public function files(): FilesInterface;
+
+    /**
+     * Get PhpInterface instance
+     *
+     * @return PhpInterface
+     */
+    public function php(): PhpInterface;
 }

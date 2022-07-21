@@ -2,6 +2,8 @@
 
 Statistics about your Symfony application: size, files, methods, templates, services, etc.
 
+All you have to do is **run a command** from the "rts" namespace.
+
 Directories for analysis: `assets, bin, config, migrations, public, templates, translations, src, tests`
 
 | #   | Title  | Value                           |
@@ -22,9 +24,19 @@ Directories for analysis: `assets, bin, config, migrations, public, templates, t
 | ... | ...                | ...                             |
 | 8   | php                | 47                              |
 
+| #   | Title                       | Amount                          |
+|-----|-----------------------------|---------------------------------|
+| 1   | Root folder                 | /var/www/demo.symfony.localhost |
+| 2   | Directory list              | src, tests                      |
+| 3   | ... found "class"           | 49                              |
+| 4   | ... found "interface"       | 5                               |
+| ... | ...                         | ...                             |
+| 8   | ... found "public function" | 171                             |
+
 To get one of the statistics options, run the following commands:
 - general information: `rts:stats:general`
-- general information: `rts:stats:files`
+- all files information: `rts:stats:files`
+- **only php** files information: `rts:stats:php`
 - to be continued :-) ...
 
 To get more detailed information about a specific service run this command `bin/console debug:container rts.app`

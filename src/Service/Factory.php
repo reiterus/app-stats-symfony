@@ -11,6 +11,7 @@
 
 namespace Reiterus\AppStatsBundle\Service;
 
+use Reiterus\AppStatsBundle\Contract\PhpInterface;
 use Reiterus\AppStatsBundle\Contract\FilesInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Reiterus\AppStatsBundle\Contract\FactoryInterface;
@@ -27,22 +28,26 @@ class Factory implements FactoryInterface
     private KernelInterface $kernel;
     private HelperInterface $helper;
     private FilesInterface $files;
+    private PhpInterface $php;
 
     /**
      * @codeCoverageIgnore
      * @param KernelInterface $kernel
      * @param HelperInterface $helper
      * @param FilesInterface $files
+     * @param PhpInterface $php
      */
     public function __construct(
         KernelInterface $kernel,
         HelperInterface $helper,
-        FilesInterface $files
+        FilesInterface $files,
+        PhpInterface $php
     )
     {
         $this->kernel = $kernel;
         $this->helper = $helper;
         $this->files = $files;
+        $this->php = $php;
     }
 
     /**
@@ -73,5 +78,15 @@ class Factory implements FactoryInterface
     public function files(): FilesInterface
     {
         return $this->files;
+    }
+
+    /**
+     * Get PhpInterface instance
+     *
+     * @return PhpInterface
+     */
+    public function php(): PhpInterface
+    {
+        return $this->php;
     }
 }
