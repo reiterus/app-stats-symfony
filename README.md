@@ -37,7 +37,8 @@ To get one of the statistics options, run the following commands:
 - general information: `rts:stats:general`
 - all files information: `rts:stats:files`
 - **only php** files information: `rts:stats:php`
-- to be continued :-) ...
+
+> To get Summary Application Statistics (general, files, php) run the command **rts:stats:summary**
 
 To get more detailed information about a specific service run this command `bin/console debug:container rts.app`
 

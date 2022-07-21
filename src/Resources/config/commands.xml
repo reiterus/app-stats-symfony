@@ -60,6 +60,15 @@
         </service>
         <service id="Reiterus\AppStatsBundle\Command\PhpCommand"
                  alias="rts.app.stats.command.php"/>
+
+        <service id="rts.app.stats.command.summary"
+                 public="true"
+                 autowire="true"
+                 class="Reiterus\AppStatsBundle\Command\SummaryCommand">
+            <tag name="console.command" command="rts:stats:summary" />
+        </service>
+        <service id="Reiterus\AppStatsBundle\Command\SummaryCommand"
+                 alias="rts.app.stats.command.summary"/>
     </services>
 
 </container>
