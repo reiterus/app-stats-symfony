@@ -1,31 +1,31 @@
 {
-    "name": "reiterus/app-stats-symfony",
-    "description": "Symfony application stats: methods, templates, services, etc",
-    "keywords": ["symfony", "bundle", "application", "stats", "reiterus"],
-    "type": "symfony-bundle",
-    "version": "1.1.1",
-    "minimum-stability": "dev",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Pavel Vasin",
-            "email": "reiterus@yandex.ru"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Reiterus\\AppStatsBundle\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Reiterus\\AppStatsBundle\\Tests\\": "tests/"
-        }
-    },
-    "require": {
-        "php": "^7.4"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5"
-    }
+ "name": "reiterus/app-stats-symfony",
+ "description": "Statistics about your Symfony application: size, files, methods, templates, services, etc.",
+ "keywords": ["symfony","bundle","application","stats","reiterus"],
+ "type": "symfony-bundle",
+ "version": "1.2.0",
+ "minimum-stability": "dev",
+ "license": "MIT",
+ "authors": [
+  {
+   "name": "Pavel Vasin",
+   "email": "reiterus@yandex.ru"
+  }
+ ],
+ "autoload": {
+  "psr-4": {
+   "Reiterus\\AppStatsBundle\\": "src/"
+  }
+ },
+ "autoload-dev": {
+  "psr-4": {
+   "Reiterus\\AppStatsBundle\\Tests\\": "tests/"
+  }
+ },
+ "require": {
+  "php": "^7.4"
+ },
+ "require-dev": {
+  "phpunit/phpunit": "^9.5"
+ }
 }

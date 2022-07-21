@@ -10,6 +10,11 @@
                  autowire="true"
                  class="Reiterus\AppStatsBundle\Service\Helper">
         </service>
+        <service id="rts.app.stats.service.files"
+                 public="true"
+                 autowire="true"
+                 class="Reiterus\AppStatsBundle\Service\Files">
+        </service>
 
         <service id="rts.app.stats.service.factory"
                  public="true"
@@ -17,6 +22,7 @@
                  class="Reiterus\AppStatsBundle\Service\Factory">
             <argument type="service" key="$kernel" id="kernel" />
             <argument type="service" key="$helper" id="rts.app.stats.service.helper" />
+            <argument type="service" key="$files" id="rts.app.stats.service.files" />
         </service>
 
         <service id="rts.app.stats.command.general"
@@ -28,6 +34,16 @@
         </service>
         <service id="Reiterus\AppStatsBundle\Command\GeneralCommand"
                  alias="rts.app.stats.command.general"/>
+
+        <service id="rts.app.stats.command.files"
+                 public="true"
+                 autowire="true"
+                 class="Reiterus\AppStatsBundle\Command\FilesCommand">
+            <argument type="service" key="$factory" id="rts.app.stats.service.factory" />
+            <tag name="console.command" command="rts:stats:files" />
+        </service>
+        <service id="Reiterus\AppStatsBundle\Command\FilesCommand"
+                 alias="rts.app.stats.command.files"/>
     </services>
 
 </container>
