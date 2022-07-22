@@ -11,21 +11,28 @@
 
 namespace Reiterus\AppStatsBundle\Contract;
 
+use Symfony\Component\HttpKernel\KernelInterface;
+
 /**
  * @codeCoverageIgnore
- * Interface FilesInterface
+ * Interface AbstractServiceInterface
  *
  * @package Reiterus\AppStatsBundle\Contract
  * @author Pavel Vasin <reiterus@yandex.ru>
  */
-interface FilesInterface
+interface AbstractServiceInterface
 {
     /**
-     * Count files by extensions
+     * Get Kernel instance
      *
-     * @param array $folders
-     *
-     * @return array
+     * @return KernelInterface
      */
-    public function countByExtensions(array $folders): array;
+    public function getKernel(): KernelInterface;
+
+    /**
+     * Get path to root project folder
+     *
+     * @return string
+     */
+    public function getProjectDir(): string;
 }

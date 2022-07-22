@@ -23,34 +23,6 @@ use RecursiveIteratorIterator;
 interface HelperInterface
 {
     /**
-     * Count files in a directory
-     *
-     * @param string $folder
-     *
-     * @return int
-     */
-    public function fileCount(string $folder): int;
-
-    /**
-     * Folder size in bytes
-     *
-     * @param string $folder
-     *
-     * @return int
-     */
-    public function folderSize(string $folder): int;
-
-    /**
-     * Data for general table report
-     *
-     * @param int $number
-     * @param string $rootFolder
-     *
-     * @return array
-     */
-    public function tableGeneral(int $number, string $rootFolder): array;
-
-    /**
      * Names of the required directories
      *
      * @return array
@@ -58,11 +30,12 @@ interface HelperInterface
     public function folderNames(): array;
 
     /**
-     * Recursive Folder Iterator
+     * Count size or quantity
      *
      * @param string $folder
+     * @param bool $size
      *
-     * @return RecursiveIteratorIterator
+     * @return int
      */
-    public function iterator(string $folder): RecursiveIteratorIterator;
+    public function counter(string $folder, bool $size = false): int;
 }

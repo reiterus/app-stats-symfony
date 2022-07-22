@@ -28,22 +28,14 @@ class HelperTest extends TestCase
     private Helper $object;
 
     /**
-     * @covers \Reiterus\AppStatsBundle\Service\Helper::fileCount
+     * @covers \Reiterus\AppStatsBundle\Service\Helper::counter
+     * @dataProvider dataProvider
+     * @param bool $size
      * @return void
      */
-    public function testFileCount(): void
+    public function testCounter(bool $size): void
     {
-        $actual = $this->object->fileCount(__DIR__);
-        $this->assertIsInt($actual);
-    }
-
-    /**
-     * @covers \Reiterus\AppStatsBundle\Service\Helper::folderSize
-     * @return void
-     */
-    public function testFolderSize(): void
-    {
-        $actual = $this->object->folderSize(__DIR__);
+        $actual = $this->object->counter(__DIR__, $size);
         $this->assertIsInt($actual);
     }
 
@@ -58,13 +50,15 @@ class HelperTest extends TestCase
     }
 
     /**
-     * @covers \Reiterus\AppStatsBundle\Service\Helper::iterator
-     * @return void
+     * @codeCoverageIgnore
+     * @return array
      */
-    public function testIterator(): void
+    public function dataProvider(): array
     {
-        $actual = $this->object->iterator(__DIR__);
-        $this->assertInstanceOf(RecursiveIteratorIterator::class, $actual);
+        return [
+            [true],
+            [false],
+        ];
     }
 
     /**
@@ -73,6 +67,8 @@ class HelperTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->object = new Helper();
+        $kernel = $this->getMockBuilder(KernelInterface::class)->getMock();
+        $kernel->method('getProjectDir')->willReturn(dirname(__DIR__));
+        $this->object = new Helper($kernel);
     }
 }

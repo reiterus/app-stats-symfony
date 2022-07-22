@@ -13,6 +13,7 @@ namespace Reiterus\AppStatsBundle\Tests\Service;
 
 use Reiterus\AppStatsBundle\Service\Files;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * @covers \Reiterus\AppStatsBundle\Service\Files
@@ -29,9 +30,10 @@ class FilesTest extends TestCase
      */
     public function testCountByExtensions()
     {
-        $object = new Files();
-        $root = dirname(__DIR__, 1);
-        $actual = $object->countByExtensions($root, ['Service']);
+        $kernel = $this->getMockBuilder(KernelInterface::class)->getMock();
+        $kernel->method('getProjectDir')->willReturn(dirname(__DIR__));
+        $object = new Files($kernel);
+        $actual = $object->countByExtensions(['Service']);
         $this->assertIsArray($actual);
         $this->assertIsInt(current($actual));
     }

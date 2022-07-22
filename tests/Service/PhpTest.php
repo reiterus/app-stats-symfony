@@ -13,6 +13,7 @@ namespace Reiterus\AppStatsBundle\Tests\Service;
 
 use Reiterus\AppStatsBundle\Service\Php;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * @covers \Reiterus\AppStatsBundle\Service\Php
@@ -31,8 +32,7 @@ class PhpTest extends TestCase
      */
     public function testGetList()
     {
-        $root = dirname(__DIR__, 1);
-        $actual = $this->object->getList($root, ['Service']);
+        $actual = $this->object->getList(['Service']);
         $this->assertIsArray($actual);
     }
 
@@ -52,8 +52,7 @@ class PhpTest extends TestCase
      */
     public function testCounter()
     {
-        $root = dirname(__DIR__, 1);
-        $list = $this->object->getList($root, ['DependencyInjection', 'Service']);
+        $list = $this->object->getList(['DependencyInjection', 'Service']);
         $actual = $this->object->counter($list);
         $this->assertIsArray($actual);
     }
@@ -64,6 +63,8 @@ class PhpTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->object = new Php();
+        $kernel = $this->getMockBuilder(KernelInterface::class)->getMock();
+        $kernel->method('getProjectDir')->willReturn(dirname(__DIR__));
+        $this->object = new Php($kernel);
     }
 }

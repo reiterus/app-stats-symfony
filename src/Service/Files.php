@@ -11,8 +11,6 @@
 
 namespace Reiterus\AppStatsBundle\Service;
 
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use Reiterus\AppStatsBundle\Contract\FilesInterface;
 
 /**
@@ -21,25 +19,23 @@ use Reiterus\AppStatsBundle\Contract\FilesInterface;
  * @package Reiterus\AppStatsBundle\Service
  * @author Pavel Vasin <reiterus@yandex.ru>
  */
-class Files implements FilesInterface
+class Files extends AbstractService implements FilesInterface
 {
     /**
      * Count files by extensions
      *
-     * @param string $root
      * @param array $folders
      *
      * @return array
      */
-    public function countByExtensions(string $root, array $folders): array
+    public function countByExtensions(array $folders): array
     {
         $result = [];
+        $root = $this->getProjectDir();
         
         foreach ($folders as $folder) {
-            $path = $root . '/' . $folder;
-            
-            $it = new RecursiveDirectoryIterator($path);
-            $iterator = new RecursiveIteratorIterator($it);
+            $path = sprintf('%s/%s', $root, $folder);
+            $iterator = $this->getDirIterator($path);
             
             foreach ($iterator as $file) {
                 $extension = $file->getExtension();

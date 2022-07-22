@@ -23,12 +23,11 @@ interface PhpInterface
     /**
      * Get php files list
      *
-     * @param string $root
      * @param array $folders
      *
      * @return array
      */
-    public function getList(string $root, array $folders = ['src']): array;
+    public function getList(array $folders = ['src']): array;
 
     /**
      * What are we looking for

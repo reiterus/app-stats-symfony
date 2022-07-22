@@ -56,13 +56,13 @@ class PhpCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->success(self::ABOUT);
 
-        $kernel = $this->factory->kernel();
         $php = $this->factory->php();
-
         $folders = ['src', 'tests'];
-        $root = $kernel->getProjectDir();
-        $list = $php->getList($root, $folders);
+
+        $root = $php->getProjectDir();
+        $list = $php->getList($folders);
         $rows = $php->counter($list);
+
         $index = 1;
 
         $table = new Table($output);
