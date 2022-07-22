@@ -56,18 +56,16 @@ class FilesCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->success(self::ABOUT);
 
-        $kernel = $this->factory->kernel();
         $helper = $this->factory->helper();
         $files = $this->factory->files();
 
-        $root = $kernel->getProjectDir();
-        $rows = $files->countByExtensions($root, $helper->folderNames());
+        $rows = $files->countByExtensions($helper->folderNames());
         $index = 1;
 
         $table = new Table($output);
         $table
             ->setHeaders(['#', 'Extension', 'Amount'])
-            ->addRow([$index, 'Root folder', $root]);
+            ->addRow([$index, 'Root folder', $files->getProjectDir()]);
 
         foreach ($rows as $extension => $amount) {
             $index++;

@@ -12,6 +12,7 @@
 namespace Reiterus\AppStatsBundle\Command;
 
 use Reiterus\AppStatsBundle\Contract\FactoryInterface;
+use Reiterus\AppStatsBundle\Contract\HelperInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -56,23 +57,21 @@ class GeneralCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->success(self::ABOUT);
 
-        $kernel = $this->factory->kernel();
         $helper = $this->factory->helper();
+        $root = $helper->getProjectDir();
 
-        $rootFolder = $kernel->getProjectDir();
-
-        list($bytesWork, $counter, $rows) = $helper->tableGeneral(4, $rootFolder);
+        list($bytesWork, $counter, $rows) = $this->tableData($helper, 4, $root);
 
         $bytesAll = sprintf(
             '%s (vendor, var, etc)',
-            $helper->folderSize($rootFolder)
+            $helper->counter($root, true)
         );
 
         $table = new Table($output);
         $table
             ->setHeaders(['#', 'Title', 'Value'])
             ->setRows([
-                [1, 'Root folder', $rootFolder],
+                [1, 'Root folder', $root],
                 [2, 'All project in bytes', $bytesAll],
                 [3, 'Working files in bytes', $bytesWork],
                 [4, 'Number of working files', $counter],
@@ -81,5 +80,52 @@ class GeneralCommand extends Command
         $table->render();
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * Data for general table report
+     *
+     * @param int $number
+     * @param string $rootFolder
+     *
+     * @return array
+     */
+
+    /**
+     * Get data for general table report
+     *
+     * @param HelperInterface $helper
+     * @param int $number
+     * @param string $root
+     *
+     * @return array
+     */
+    private function tableData(
+        HelperInterface $helper,
+        int $number,
+        string $root
+    ): array
+    {
+        $files = 0;
+        $bytes = 0;
+        $rows = [];
+
+        foreach ($helper->folderNames() as $folder) {
+            $number++;
+            $path = sprintf('%s/%s', $root, $folder);
+            $count = $helper->counter($path);
+            $size = $helper->counter($path, true);
+
+            $rows[] = [
+                $number,
+                sprintf('...including "%s"', $folder),
+                $count
+            ];
+
+            $files += $count;
+            $bytes += $size;
+        }
+
+        return [$bytes, $files, $rows];
     }
 }

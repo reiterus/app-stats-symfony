@@ -11,6 +11,8 @@
 
 namespace Reiterus\AppStatsBundle\Tests\Service;
 
+use Reiterus\AppStatsBundle\Contract\FilesInterface;
+use Reiterus\AppStatsBundle\Contract\PhpInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Reiterus\AppStatsBundle\Contract\HelperInterface;
 use Reiterus\AppStatsBundle\Service\Factory;
@@ -48,6 +50,26 @@ class FactoryTest extends TestCase
     }
 
     /**
+     * @covers \Reiterus\AppStatsBundle\Service\Factory::files
+     * @return void
+     */
+    public function testFiles(): void
+    {
+        $actual = $this->object->files();
+        $this->assertInstanceOf(FilesInterface::class, $actual);
+    }
+
+    /**
+     * @covers \Reiterus\AppStatsBundle\Service\Factory::php
+     * @return void
+     */
+    public function testPhp(): void
+    {
+        $actual = $this->object->php();
+        $this->assertInstanceOf(PhpInterface::class, $actual);
+    }
+
+    /**
      * @codeCoverageIgnore
      * @return void
      */
@@ -55,6 +77,9 @@ class FactoryTest extends TestCase
     {
         $kernel = $this->getMockBuilder(KernelInterface::class)->getMock();
         $helper = $this->getMockBuilder(HelperInterface::class)->getMock();
-        $this->object = new Factory($kernel, $helper);
+        $files = $this->getMockBuilder(FilesInterface::class)->getMock();
+        $php = $this->getMockBuilder(PhpInterface::class)->getMock();
+
+        $this->object = new Factory($kernel, $helper, $files, $php);
     }
 }

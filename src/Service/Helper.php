@@ -11,9 +11,6 @@
 
 namespace Reiterus\AppStatsBundle\Service;
 
-use FilesystemIterator;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 use Reiterus\AppStatsBundle\Contract\HelperInterface;
 
 /**
@@ -22,66 +19,8 @@ use Reiterus\AppStatsBundle\Contract\HelperInterface;
  * @package Reiterus\AppStatsBundle\Service
  * @author Pavel Vasin <reiterus@yandex.ru>
  */
-class Helper implements HelperInterface
+class Helper extends AbstractService implements HelperInterface
 {
-    /**
-     * Count files in a directory
-     *
-     * @param string $folder
-     *
-     * @return int
-     */
-    public function fileCount(string $folder): int
-    {
-        return $this->counter($folder);
-    }
-
-    /**
-     * Folder size in bytes
-     *
-     * @param string $folder
-     *
-     * @return int
-     */
-    public function folderSize(string $folder): int
-    {
-        return $this->counter($folder, true);
-    }
-
-    /**
-     * @codeCoverageIgnore
-     * Data for general table report
-     *
-     * @param int $number
-     * @param string $rootFolder
-     *
-     * @return array
-     */
-    public function tableGeneral(int $number, string $rootFolder): array
-    {
-        $files = 0;
-        $bytes = 0;
-        $rows = [];
-
-        foreach ($this->folderNames() as $folder) {
-            $number++;
-            $path = sprintf('%s/%s', $rootFolder, $folder);
-            $count = $this->fileCount($path);
-            $size = $this->folderSize($path);
-
-            $rows[] = [
-                $number,
-                sprintf('...including "%s"', $folder),
-                $count
-            ];
-
-            $files += $count;
-            $bytes += $size;
-        }
-
-        return [$bytes, $files, $rows];
-    }
-
     /**
      * Names of the required directories
      *
@@ -103,23 +42,6 @@ class Helper implements HelperInterface
     }
 
     /**
-     * Recursive Folder Iterator
-     *
-     * @param string $folder
-     *
-     * @return RecursiveIteratorIterator
-     */
-    public function iterator(string $folder): RecursiveIteratorIterator
-    {
-        return new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator(
-                $folder,
-                FilesystemIterator::SKIP_DOTS
-            )
-        );
-    }
-
-    /**
      * Count size or quantity
      *
      * @param string $folder
@@ -127,12 +49,12 @@ class Helper implements HelperInterface
      *
      * @return int
      */
-    protected function counter(string $folder, bool $size = false): int
+    public function counter(string $folder, bool $size = false): int
     {
         $result = 0;
 
         if (file_exists($folder)) {
-            $items = $this->iterator($folder);
+            $items = $this->getDirIterator($folder);
 
             foreach ($items as $item) {
                 if (!$item->isDir()) {

@@ -11,8 +11,6 @@
 
 namespace Reiterus\AppStatsBundle\Service;
 
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use Reiterus\AppStatsBundle\Contract\PhpInterface;
 
 /**
@@ -21,25 +19,23 @@ use Reiterus\AppStatsBundle\Contract\PhpInterface;
  * @package Reiterus\AppStatsBundle\Service
  * @author Pavel Vasin <reiterus@yandex.ru>
  */
-class Php implements PhpInterface
+class Php extends AbstractService implements PhpInterface
 {
     /**
      * Get php files list
      *
-     * @param string $root
      * @param array $folders
      *
      * @return array
      */
-    public function getList(string $root, array $folders = ['src', 'tests']): array
+    public function getList(array $folders = ['src', 'tests']): array
     {
         $result = [];
+        $root = $this->getProjectDir();
 
         foreach ($folders as $folder) {
             $path = sprintf('%s/%s', $root, $folder);
-
-            $it = new RecursiveDirectoryIterator($path);
-            $iterator = new RecursiveIteratorIterator($it);
+            $iterator = $this->getDirIterator($path);
 
             foreach ($iterator as $file) {
                 $extension = $file->getExtension();
